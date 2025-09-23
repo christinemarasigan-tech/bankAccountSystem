@@ -25,7 +25,6 @@ public class Bankaccountsystemtest {
     /** SavingsAccount instance used in each test. */
     private SavingsAccount account;
 
-    // Test constants
     /** Deposit amount for test case: Php 1000. */
     private static final double DEPOSIT_1000 = 1000.0;
 
@@ -47,11 +46,9 @@ public class Bankaccountsystemtest {
     /** Invalid withdrawal amount (negative) for test case: Php -100. */
     private static final double INVALID_WITHDRAW_NEGATIVE = -100.0;
 
-    /** Expected balance after multiple transactions for assertion: Php 1400. */
+    /** Expected balance after multiple transactions: Php 1400. */
     private static final double EXPECTED_BALANCE_AFTER_TRANSACTIONS = 1400.0;
 
-
-    // Constants for @Order annotation
     /** Execution order for Test Case 1: Create a savings account. */
     private static final int ORDER_TEST_CASE_1 = 1;
 
@@ -94,7 +91,6 @@ public class Bankaccountsystemtest {
     /** Execution order for testing initial state of AbstractBankAccount. */
     private static final int ORDER_INITIAL_STATE = 14;
 
-
     @BeforeEach
     final void setUp() {
         account = new SavingsAccount("Alice");
@@ -119,20 +115,28 @@ public class Bankaccountsystemtest {
     @Order(ORDER_TEST_CASE_3)
     @DisplayName("Test Case 3: Deposit zero amount")
     void testDepositZero() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> 
-            account.deposit(0)
+        Exception exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> account.deposit(0)
         );
-        assertEquals("The deposit amount must be positive.", exception.getMessage());
+        assertEquals(
+            "The deposit amount must be positive.",
+            exception.getMessage()
+        );
     }
 
     @Test
     @Order(ORDER_TEST_CASE_4)
     @DisplayName("Test Case 4: Deposit negative amount")
     void testDepositNegative() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> 
-            account.deposit(INVALID_DEPOSIT_NEGATIVE)
+        Exception exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> account.deposit(INVALID_DEPOSIT_NEGATIVE)
         );
-        assertEquals("The deposit amount must be positive.", exception.getMessage());
+        assertEquals(
+            "The deposit amount must be positive.",
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -141,27 +145,38 @@ public class Bankaccountsystemtest {
     void testWithdrawValid() {
         account.deposit(DEPOSIT_1000);
         account.withdraw(WITHDRAW_500);
-        assertEquals(DEPOSIT_1000 - WITHDRAW_500, account.getBalance());
+        assertEquals(
+            DEPOSIT_1000 - WITHDRAW_500,
+            account.getBalance()
+        );
     }
 
     @Test
     @Order(ORDER_TEST_CASE_6)
     @DisplayName("Test Case 6: Withdraw with insufficient funds")
     void testWithdrawInsufficientFunds() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> 
-            account.withdraw(WITHDRAW_1500)
+        Exception exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> account.withdraw(WITHDRAW_1500)
         );
-        assertEquals("Insufficient balance.", exception.getMessage());
+        assertEquals(
+            "Insufficient balance.",
+            exception.getMessage()
+        );
     }
 
     @Test
     @Order(ORDER_TEST_CASE_7)
     @DisplayName("Test Case 7: Withdraw negative amount")
     void testWithdrawNegative() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> 
-            account.withdraw(INVALID_WITHDRAW_NEGATIVE)
+        Exception exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> account.withdraw(INVALID_WITHDRAW_NEGATIVE)
         );
-        assertEquals("The withdrawn amount must be positive.", exception.getMessage());
+        assertEquals(
+            "The withdrawn amount must be positive.",
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -169,10 +184,14 @@ public class Bankaccountsystemtest {
     @DisplayName("Test Case 8: Deposit when account is frozen")
     void testFreezeDeposit() {
         account.freezeAccount();
-        Exception exception = assertThrows(IllegalStateException.class, () -> 
-            account.deposit(DEPOSIT_11500)
+        Exception exception = assertThrows(
+            IllegalStateException.class,
+            () -> account.deposit(DEPOSIT_11500)
         );
-        assertEquals("Account is frozen. Cannot deposit.", exception.getMessage());
+        assertEquals(
+            "Account is frozen. Cannot deposit.",
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -180,10 +199,14 @@ public class Bankaccountsystemtest {
     @DisplayName("Test Case 9: Withdraw when account is frozen")
     void testFreezeWithdraw() {
         account.freezeAccount();
-        Exception exception = assertThrows(IllegalStateException.class, () -> 
-            account.withdraw(WITHDRAW_500)
+        Exception exception = assertThrows(
+            IllegalStateException.class,
+            () -> account.withdraw(WITHDRAW_500)
         );
-        assertEquals("Account is frozen. Cannot withdraw.", exception.getMessage());
+        assertEquals(
+            "Account is frozen. Cannot withdraw.",
+            exception.getMessage()
+        );
     }
 
     @Test
@@ -195,7 +218,10 @@ public class Bankaccountsystemtest {
         account.deposit(DEPOSIT_1000);
         account.withdraw(WITHDRAW_100);
         assertFalse(account.isFrozen());
-        assertEquals(DEPOSIT_1000 - WITHDRAW_100, account.getBalance());
+        assertEquals(
+            DEPOSIT_1000 - WITHDRAW_100,
+            account.getBalance()
+        );
     }
 
     @Test
@@ -215,7 +241,10 @@ public class Bankaccountsystemtest {
         account.withdraw(WITHDRAW_500);
         account.deposit(DEPOSIT_1000);
         account.withdraw(WITHDRAW_100);
-        assertEquals(EXPECTED_BALANCE_AFTER_TRANSACTIONS, account.getBalance());
+        assertEquals(
+            EXPECTED_BALANCE_AFTER_TRANSACTIONS,
+            account.getBalance()
+        );
     }
 
     @Test
